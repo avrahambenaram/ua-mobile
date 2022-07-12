@@ -4,6 +4,18 @@ import screen from '../../constants/screen';
 import colors from '../../constants/colors';
 
 const styles = StyleSheet.create({
+    modalBlock: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        flex: 1,
+        alignItems: 'center'
+    },
+
+    modalText: {
+        fontFamily: 'Nunito400',
+        fontSize: 18,
+        color: colors.text.error
+    },
+
     container: {
         flex: 1,
         alignItems: 'center'
@@ -53,6 +65,29 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         fontFamily: 'Nunito400',
         fontSize: 18
+    },
+
+    sectionInput: {
+        fontFamily: 'Nunito400',
+        fontSize: 16,
+        color: colors.text.primary,
+        padding: 5,
+        marginVertical: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: colors.border.input
+    },
+
+    pickerItems: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: 5
+    },
+
+    pickerText: {
+        fontFamily: 'Nunito400',
+        fontSize: 18,
+        color: colors.text.primary,
     },
 
     text: {
