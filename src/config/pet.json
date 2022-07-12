@@ -1,0 +1,31 @@
+{
+    "screens": {
+        "header": {
+            "title": {
+                "petFound": "Pets encontrados",
+                "petLost": "Pets perdidos"
+            }
+        },
+        "attributes": {
+            "icons": {
+                "gender": {
+                    "male": "mars",
+                    "female": "venus"
+                }
+            },
+            "label": {
+                "size": {
+                    "small": "P",
+                    "medium": "M",
+                    "large": "G"
+                }
+            }
+        }
+    },
+    "api": {
+        "path": {
+            "petFound": "petfound",
+            "petLost": "petlost"
+        }
+    }
+}
