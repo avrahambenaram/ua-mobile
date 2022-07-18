@@ -1,4 +1,6 @@
 declare module '*.png';
+declare module 'styled-components/native';
+declare module '@react-native-async-storage/async-storage';
 declare interface Pet {
     uuid: string
     phone: string

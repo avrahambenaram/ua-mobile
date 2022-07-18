@@ -1,55 +1,45 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
 import screen from '../../constants/screen';
 import colors from '../../constants/colors';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center'
-    },
+export const Container = styled.View`
+    flex: 1;
+    align-items: center;
+`
+export const Main = styled.View`
+    width: 100%;
+    height: 90%;
 
-    main: {
-        width: '100%',
-        height: '90%',
+    padding: ${screen.height * .1}px ${screen.width * .1}px;
+`
+export const Text = styled.Text`
+    color: ${colors.text.secondary};
+    font-family: Nunito400;
+    font-size: 20px;
 
-        paddingHorizontal: screen.width * 0.1,
-        paddingVertical: screen.height * 0.1
-    },
+    margin: 10px 0;
+`
+export const TextInput = styled.TextInput`
+    width: 100%;
+    padding: 10px;
+    border-width: 1px;
+    border-color: ${colors.border.input};
+    border-radius: 10px;
+    margin-bottom: 20px;
+`
+export const RecoverButton = styled(RectButton)`
+    width: 100%;
+    padding: 10px 0;
+    background-color: ${colors.primary.default};
+    border-radius: 15px;
 
-    text: {
-        color: colors.text.secondary,
-        fontFamily: 'Nunito400',
-        fontSize: 20,
-
-        marginVertical: 10
-    },
-
-    textInput: {
-        width: '100%',
-        paddingVertical: 10,
-        paddingHorizontal: 10,
-        borderWidth: 1,
-        borderColor: colors.border.input,
-        borderRadius: 10,
-        marginBottom: 20
-    },
-
-    recoverButton: {
-        width: '100%',
-        paddingVertical: 10,
-        backgroundColor: colors.primary.default,
-        borderRadius: 15,
-
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    recoverButtonText: {
-        color: colors.text.third,
-        fontFamily: 'Nunito400',
-        fontSize: 20
-    }
-})
-
-export default styles;
+    justify-content: center;
+    align-items: center;
+`
+export const RecoverButtonText = styled.Text`
+    color: ${colors.text.third};
+    font-family: Nunito400;
+    font-size: 20px;
+`

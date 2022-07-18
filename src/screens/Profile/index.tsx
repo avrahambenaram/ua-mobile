@@ -1,15 +1,15 @@
-import { View } from 'react-native';
-
-import styles from './styles';
+import {
+    Container
+} from './styles';
 
 import Header from '../../components/Header';
 
 function Profile() {
-    return <View style={styles.container}>
+    return <Container>
         <Header
             headerTitle='Perfil'
         />
-    </View>
+    </Container>
 }
 
 export default Profile;

@@ -1,102 +1,84 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+import { RectButton } from 'react-native-gesture-handler';
 
 import colors from '../../constants/colors';
 import screen from '../../constants/screen';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center'
-    },
+export const Container = styled.View`
+    flex: 1;
+    align-items: center;
+`
+export const Header = styled.View`
+    width: 110%;
+    height: 70%;
+    transform: translateY(-${screen.height * .35}px);
+    border-radius: ${screen.width * 1.1/2}px;
+    padding: 60px 0;
+    background-color: ${colors.primary.default};
 
-    header: {
-        width: '110%',
-        height: '70%',
-        transform: [{
-            translateY: -(screen.height * 0.35)
-        }],
-        borderRadius: (screen.width * 1.1)/2,
-        paddingVertical: 60,
-        backgroundColor: colors.primary.default,
+    justify-content: flex-end;
+    align-items: center;
+`
+export const Logo = styled.Image`
+    width: ${screen.width * .25}px;
+    height: ${screen.width * .25}px;
+    border-radius: ${screen.width * .25/2}px;
+    background-color: ${colors.primary.default};
+    border-width: 1px;
+    border-color: #fff;
+`
+export const Interface = styled.View`
+    width: 100%;
+    transform: translateY(-${screen.width * .37}px);
 
-        justifyContent: 'flex-end',
-        alignItems: 'center'
-    },
+    align-items: center;
+`
+export const TextInput = styled.TextInput`
+    width: 80%;
+    border-radius: 20px;
+    padding: 10px 15px;
+    margin: 5px 0;
+    background-color: ${colors.background.primary};
 
-    logo: {
-        width: screen.width * 0.25,
-        height: screen.width * 0.25,
-        borderRadius: (screen.width * 0.25)/2,
-        backgroundColor: colors.primary.default,
-        borderWidth: 1,
-        borderColor: '#fff'
-    },
+    color: ${colors.text.primary};
+    font-family: Nunito400;
 
-    interface: {
-        width: '100%',
-        transform: [{
-            translateY: -(screen.height * 0.37)
-        }],
-        
-        alignItems: 'center'
-    },
+    border-width: 1px;
+    border-color: ${colors.border.input};
+`
+export const LoginButton = styled(RectButton)`
+    width: 80%;
+    border-radius: 20px;
+    padding: 15px 0;
+    margin: 5px 0;
+    background-color: ${colors.primary.default};
 
-    textInput: {
-        width: '80%',
-        borderRadius: 20,
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        marginVertical: 5,
-        backgroundColor: colors.background.primary,
+    justify-content: center;
+    align-items: center;
+`
+export const LoginButtonText = styled.Text`
+    color: ${colors.text.third};
+    font-family: Nunito400;
+`
+export const ErrorText = styled.Text`
+    font-family: Nunito400;
+    font-size: 18px;
+    color: ${colors.text.error};
+`
+export const Question = styled.View`
+    margin: 15px 0;
 
-        color: colors.text.primary,
-        fontFamily: 'Nunito400',
-
-        borderWidth: 1,
-        borderColor: colors.border.input
-    },
-
-    loginButton: {
-        width: '80%',
-        borderRadius: 20,
-        paddingVertical: 15,
-        marginVertical: 5,
-        backgroundColor: colors.primary.default,
-
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-
-    loginButtonText: {
-        color: colors.text.third,
-        fontFamily: 'Nunito400'
-    },
-
-    errorText: {
-        fontFamily: 'Nunito400',
-        fontSize: 18,
-        color: colors.text.error
-    },
-
-    question: {
-        marginVertical: 15,
-        flexDirection: 'row',
-        justifyContent: 'center'
-    },
-
-    questionText: {
-        color: colors.text.secondary,
-        fontFamily: 'Nunito400'
-    },
-
-    questionButton: {
-        marginLeft: 10
-    },
-
-    questionTextButton: {
-        color: colors.primary.default,
-        fontFamily: 'Nunito600'
-    }
-})
-
-export default styles;
+    flex-direction: row;
+    justify-content: center;
+`
+export const QuestionText = styled.Text`
+    color: ${colors.text.secondary};
+    font-family: Nunito400;
+`
+export const QuestionButton = styled(RectButton)`
+    margin-left: 10px;
+`
+export const QuestionTextButton = styled.Text`
+    color: ${colors.primary.default};
+    font-family: Nunito600;
+`

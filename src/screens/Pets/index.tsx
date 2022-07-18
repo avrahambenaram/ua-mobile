@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
 import { View, FlatList } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
-import styles from './styles';
+import styles, {
+    Container,
+    FloatButton,
+    Main
+} from './styles';
 
 import Header from '../../components/Header';
 import PetItem from '../../components/PetItem';
@@ -71,30 +74,29 @@ function Pets({ mode }: Props) {
         load();
     }, [])
 
-    return <View style={styles.container}>
+    return <Container>
         <Header
             drawer
             headerTitle={petConfig.screens.header.title[mode]}
         />
-        <RectButton onPress={handleAddPet} style={styles.floatButton}>
+        <FloatButton onPress={handleAddPet}>
             <FontAwesome5
                 name='plus'
                 size={18}
                 color={colors.primary.default}
             />
-        </RectButton>
-        <FlatList
-            style={styles.main}
+        </FloatButton>
+        <Main
             contentContainerStyle={styles.mainContent}
             data={pets}
-            renderItem={({ item }) => <PetItem pet={item} onPress={() => handleSeePet(item)}/>}
-            keyExtractor={pet => pet.uuid}
+            renderItem={({ item }: { item: Pet }) => <PetItem pet={item} onPress={() => handleSeePet(item)}/>}
+            keyExtractor={(pet: Pet) => pet.uuid}
             onEndReached={handleMorePets}
             onEndReachedThreshold={0.2}
             numColumns={2}
             columnWrapperStyle={{ marginTop: 10 }}
         />
-    </View>
+    </Container>
 }
 
 export default Pets;

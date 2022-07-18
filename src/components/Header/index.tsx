@@ -1,10 +1,12 @@
 import { Text } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
 import { RectButton } from 'react-native-gesture-handler';
 
-import styles from './styles';
+import {
+    Container,
+    HeaderTitle
+} from './styles';
 import colors from '../../constants/colors';
 
 interface Props {
@@ -20,9 +22,9 @@ function Header(props: Props) {
     function checkParams() {
         if (route.params) {
             if (route.params.headerTitle) {
-                return <Text style={styles.headerTitle}>
+                return <HeaderTitle>
                     {route.params.headerTitle}
-                </Text>
+                </HeaderTitle>
             }
         }
         return null;
@@ -36,8 +38,7 @@ function Header(props: Props) {
         (navigation as any).openDrawer();
     }
 
-    return <LinearGradient
-        style={styles.container}
+    return <Container
         colors={[colors.primary.default, '#000']}
         start={{
             x: 0,
@@ -56,10 +57,10 @@ function Header(props: Props) {
             />
         </RectButton>
         {checkParams()}
-        {props.headerTitle ? <Text style={styles.headerTitle}>
+        {props.headerTitle ? <HeaderTitle>
             {props.headerTitle}
-        </Text> : null}
-    </LinearGradient>
+        </HeaderTitle> : null}
+    </Container>
 }
 
 export default Header;

@@ -1,30 +1,33 @@
-import { View, Text, TextInput } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
-
-import styles from './styles';
+import {
+    Container,
+    Main,
+    Text,
+    TextInput,
+    RecoverButton,
+    RecoverButtonText
+} from './styles';
 
 import Header from '../../components/Header';
 
 function RecoverPass() {
-    return <View style={styles.container}>
+    return <Container>
         <Header/>
-        <View style={styles.main}>
-            <Text style={styles.text}>
+        <Main>
+            <Text>
                 Para recuperar a sua senha, informe  o seu email e será enviado um link de recuperação
             </Text>
-            <Text style={styles.text}>
+            <Text>
                 Informe o email
             </Text>
             <TextInput
-                style={styles.textInput}
                 placeholder="Email"
                 keyboardType='email-address'
             />
-            <RectButton style={styles.recoverButton} onPress={() => alert('Recuperação uhuu!')}>
-                <Text style={styles.recoverButtonText}>Recuperar</Text>
-            </RectButton>
-        </View>
-    </View>
+            <RecoverButton onPress={() => alert('Recuperação uhuu!')}>
+                <RecoverButtonText>Recuperar</RecoverButtonText>
+            </RecoverButton>
+        </Main>
+    </Container>
 }
 
 export default RecoverPass;

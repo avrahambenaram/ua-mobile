@@ -1,12 +1,9 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 
 import colors from '../../constants/colors';
+import screen from '../../constants/screen';
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center'
-    }
-})
-
-export default styles;
+export const Container = styled.View`
+    flex: 1;
+    align-items: center;
+`

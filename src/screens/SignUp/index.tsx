@@ -1,13 +1,28 @@
 import { useState } from 'react';
-import { View, ScrollView, Text, TextInput, ActivityIndicator } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { Feather, FontAwesome5 } from '@expo/vector-icons';
-import { RectButton } from 'react-native-gesture-handler';
-import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 
 import styles from './styles';
+import {
+    Container,
+    Main,
+    Section,
+    SectionTitle,
+    InputContainer,
+    Input,
+    SignUpButton,
+    SignUpButtonText,
+    ErrorText,
+    Text,
+    SocialMediaContainer,
+    SocialMedia
+} from './styles';
 
 import Header from '../../components/Header';
 
@@ -18,6 +33,9 @@ import api from '../../services/api';
 WebBrowser.maybeCompleteAuthSession()
 
 function SignUp() {
+
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
 
     const [accessTokenFacebook, setAccessTokenFacebook] = useState('');
     const [userInfo, setUserInfo] = useState<any>();
@@ -55,6 +73,11 @@ function SignUp() {
     }
 
     async function handleRegister() {
+        if (password !== confirmPassword) {
+            setError(true);
+            setErrorMessage('As senhas precisam ser iguais');
+            return;
+        }
         setLoading(true);
         setError(false);
         try {
@@ -63,92 +86,95 @@ function SignUp() {
                 email,
                 password
             })
-            console.log(data)
+            await AsyncStorage.setItem('auth', data.token);
+            dispatch({
+                type: 'set-token',
+                payload: data.token
+            })
+            navigation.goBack();
         } catch(err: any) {
             setError(true);
-            setErrorMessage(err.response.data.message);
+            if (err.response) {
+                setErrorMessage(err.response.data.message);
+            } else {
+                setErrorMessage('Um erro ocorreu ao cadastrar seu pet');
+            }
         }
         setLoading(false);
     }
 
-    return <View style={styles.container}>
+    return <Container>
         <Header/>
-        <ScrollView
-            style={styles.main}
+        <Main
             contentContainerStyle={styles.mainContent}
         >
-            <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Dados de acesso</Text>
-                <View style={styles.inputContainer}>
+            <Section>
+                <SectionTitle>Dados de acesso</SectionTitle>
+                <InputContainer>
                     <Feather
                         name='user'
                         size={20}
                         color={colors.text.secondary}
                     />
-                    <TextInput
-                        style={styles.input}
+                    <Input
                         placeholder='Digite seu nome'
                         value={name}
-                        onChangeText={txt => setName(txt)}
+                        onChangeText={(txt: string) => setName(txt)}
                     />
-                </View>
-                <View style={styles.inputContainer}>
+                </InputContainer>
+                <InputContainer>
                     <Feather
                         name='mail'
                         size={20}
                         color={colors.text.secondary}
                     />
-                    <TextInput
-                        style={styles.input}
+                    <Input
                         placeholder='Digite seu email'
                         keyboardType='email-address'
                         value={email}
-                        onChangeText={txt => setEmail(txt)}
+                        onChangeText={(txt: string) => setEmail(txt)}
                     />
-                </View>
-                <View style={styles.inputContainer}>
+                </InputContainer>
+                <InputContainer>
                     <Feather
                         name='lock'
                         size={20}
                         color={colors.text.secondary}
                     />
-                    <TextInput
-                        style={styles.input}
+                    <Input
                         placeholder='Digite uma senha'
                         secureTextEntry
                         value={password}
-                        onChangeText={txt => setPassword(txt)}
+                        onChangeText={(txt: string) => setPassword(txt)}
                     />
-                </View>
-                <View style={styles.inputContainer}>
+                </InputContainer>
+                <InputContainer>
                     <Feather
                         name='lock'
                         size={20}
                         color={colors.text.secondary}
                     />
-                    <TextInput
-                        style={styles.input}
+                    <Input
                         placeholder='Digite a senha novamente'
                         secureTextEntry
                         value={confirmPassword}
-                        onChangeText={txt => setConfirmPassword(txt)}
+                        onChangeText={(txt: string) => setConfirmPassword(txt)}
                     />
-                </View>
-                <RectButton style={styles.signUpButton} onPress={handleRegister}>
-                    <Text style={styles.signUpButtonText}>Registrar</Text>
-                </RectButton>
-            </View>
+                </InputContainer>
+                <SignUpButton onPress={handleRegister}>
+                    <SignUpButtonText>Registrar</SignUpButtonText>
+                </SignUpButton>
+            </Section>
             {loading ? <ActivityIndicator
                 size='large'
                 color={colors.primary.default}
             /> : null}
-            {error ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
-            <Text style={styles.text}>Ou</Text>
-            <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Faça login por um desses métodos</Text>
-                <View style={styles.socialMediaContainer}>
-                    <RectButton
-                        style={styles.socialMedia}
+            {error ? <ErrorText>{errorMessage}</ErrorText> : null}
+            <Text>Ou</Text>
+            <Section>
+                <SectionTitle>Faça login por um desses métodos</SectionTitle>
+                <SocialMediaContainer>
+                    <SocialMedia
                         onPress={handleLoginFacebook}
                     >
                         <FontAwesome5
@@ -156,9 +182,8 @@ function SignUp() {
                             size={24}
                             color={colors.text.third}
                         />
-                    </RectButton>
-                    <RectButton
-                        style={styles.socialMedia}
+                    </SocialMedia>
+                    <SocialMedia
                         onPress={handleLoginGoogle}
                     >
                         <FontAwesome5
@@ -166,20 +191,18 @@ function SignUp() {
                             size={24}
                             color={colors.text.third}
                         />
-                    </RectButton>
-                    <RectButton
-                        style={styles.socialMedia}
-                    >
+                    </SocialMedia>
+                    <SocialMedia>
                         <FontAwesome5
                             name='twitter'
                             size={24}
                             color={colors.text.third}
                         />
-                    </RectButton>
-                </View>
-            </View>
-        </ScrollView>
-    </View>
+                    </SocialMedia>
+                </SocialMediaContainer>
+            </Section>
+        </Main>
+    </Container>
 }
 
 export default SignUp;

@@ -1,11 +1,23 @@
 import { useState } from 'react';
-import { View, TextInput, Text, Image, ActivityIndicator } from 'react-native';
-import { RectButton } from 'react-native-gesture-handler';
+import { ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useDispatch } from 'react-redux';
 
-import styles from './styles';
+import {
+    Container,
+    Header,
+    Logo,
+    Interface,
+    TextInput,
+    LoginButton,
+    LoginButtonText,
+    ErrorText,
+    Question,
+    QuestionText,
+    QuestionButton,
+    QuestionTextButton
+} from './styles';
 import colors from '../../constants/colors';
 import logo from '../../../assets/icon.png';
 
@@ -51,57 +63,56 @@ function SignIn() {
             })
         } catch(err: any) {
             setError(true);
-            setErrorMessage(err.response.data.message);
+            if (err.response) {
+                setErrorMessage(err.response.data.message);
+            } else {
+                setErrorMessage('Um erro ocorreu ao cadastrar seu pet');
+            }
         }
         setLoading(false);
     }
 
-    return <View style={styles.container}>
-        <View style={styles.header}>
-            <Image
-                style={styles.logo}
-                source={logo}
-            />
-        </View>
-        <View style={styles.interface}>
+    return <Container>
+        <Header>
+            <Logo source={logo}/>
+        </Header>
+        <Interface>
             <TextInput
-                style={styles.textInput}
                 placeholder="Email"
                 placeholderTextColor={colors.text.secondary}
                 keyboardType='email-address'
                 value={email}
-                onChangeText={txt => setEmail(txt)}
+                onChangeText={(txt: any) => setEmail(txt)}
             />
             <TextInput
-                style={styles.textInput}
                 placeholder="Senha"
                 placeholderTextColor={colors.text.secondary}
                 secureTextEntry
                 value={password}
-                onChangeText={txt => setPassword(txt)}
+                onChangeText={(txt: any) => setPassword(txt)}
             />
-            <RectButton style={styles.loginButton} onPress={handleLogin}>
-                <Text style={styles.loginButtonText}>Login</Text>
-            </RectButton>
+            <LoginButton onPress={handleLogin}>
+                <LoginButtonText>Login</LoginButtonText>
+            </LoginButton>
             {loading ? <ActivityIndicator
                 size='large'
                 color={colors.primary.default}
             /> : null}
-            {error ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
-            <View style={styles.question}>
-                <Text style={styles.questionText}>Não possui uma conta?</Text>
-                <RectButton style={styles.questionButton} onPress={handleGoSignup}>
-                    <Text style={styles.questionTextButton}>Registrar</Text>
-                </RectButton>
-            </View>
-            <View style={styles.question}>
-                <Text style={styles.questionText}>Esqueceu sua senha?</Text>
-                <RectButton style={styles.questionButton} onPress={handleGoRecoverPass}>
-                    <Text style={styles.questionTextButton}>Recuperar</Text>
-                </RectButton>
-            </View>
-        </View>
-    </View>
+            {error ? <ErrorText>{errorMessage}</ErrorText> : null}
+            <Question>
+                <QuestionText>Não possui uma conta?</QuestionText>
+                <QuestionButton onPress={handleGoSignup}>
+                    <QuestionTextButton>Registrar</QuestionTextButton>
+                </QuestionButton>
+            </Question>
+            <Question>
+                <QuestionText>Esqueceu sua senha?</QuestionText>
+                <QuestionButton onPress={handleGoRecoverPass}>
+                    <QuestionTextButton>Recuperar</QuestionTextButton>
+                </QuestionButton>
+            </Question>
+        </Interface>
+    </Container>
 }
 
 export default SignIn;
